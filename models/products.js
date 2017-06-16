@@ -13,13 +13,13 @@ var mongoose = require('mongoose');
 
 var productsSchema = new mongoose.Schema(
 {
- category:String,
- item_id:String,
- name:String,
- price:Number,
- vendor:{id:String,name:String},
- description:String,
- img:String 
+ "category":String,
+ "item_id":String,
+ "name":String,
+ "price":Number,
+ "vendor":{"id":String,"name":String},
+ "description":String,
+ "img":String 
 }
 );
 

@@ -18,15 +18,20 @@ router.route('/')
         
       })
       .post(function(req,res){
-      	if(!req.body.item){
+      	let data = req.body.item;
+      	if(!data){
       		res.sendStatus(500);
       	}
-     
-        let product = new Products(req.body.item)
+        
+      
+      if(typeof(data)==="string")
+          data = JSON.parse(data);
+    
+      let product = new Products(data);
         
         product.save(function(err){
             if(err){
-             	res.send("Some issue with the id's check your item");
+             //	res.send("Some issue with the id's check your item");
             }
          });
 
@@ -61,15 +66,15 @@ router.route('/delete')
       .post(function(req,res){
 
       let query = req.body.query;
-      Products.remove(query,function(err){
+      console.log(typeof(query));
+      Products.findOneAndRemove(query,function(err){
            if(err){
-          // 	res.sendStatus(500);
+           	res.sendStatus(500);
            }else{
-          // 	res.sendStatus(200);
+           	res.sendStatus(200);
            }
       });
 
-      res.sendStatus(200)	
     })              
 
 module.exports = router;
