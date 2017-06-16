@@ -3,10 +3,11 @@ var app = express();
 var cors = require('cors');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-//app.use(bodyParser.urlencoded({ extended: false }));
+
  
 // parse application/json 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 /** 
 supporting CROS
 */
@@ -17,6 +18,8 @@ app.use(cors());
 */
 mongoose.connect("mongodb://localhost:27017");
 mongoose.set('debug', true);
+
+require('./models/products');
 
 
 var bodyParser = require('body-parser');

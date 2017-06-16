@@ -11,7 +11,7 @@ var mongoose = require('mongoose');
  //    "img":""
 
 
-var products = ewn mongoose.Schema(
+var productsSchema = new mongoose.Schema(
 {
  category:String,
  item_id:String,
@@ -30,4 +30,7 @@ Implement custome methods
 
 
 
-mongoose.model('products', products);
+//var Products = 
+mongoose.model('Products', productsSchema);
+//module.exports = Products;
+
