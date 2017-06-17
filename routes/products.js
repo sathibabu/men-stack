@@ -39,23 +39,21 @@ router.route('/')
 
       });
 
+
 router.route('/update')
       .post(function(req,res){
-        
         let query = req.body.query;
         let update = req.body.update; 
 
       	console.log(query);
       	console.log(update);
+
       	if(!update || !update){
       		res.send("Malformed url data not able to find item_id or newitems");
       	}
 
-      	Products.findOne(query,function(err,data){
-             if(err){
-             }else{
-             
-             } 
+      	Products.findOneAndUpdate(query,update,{new:true},function(err){
+            
       	});
     
         res.sendStatus(200);
