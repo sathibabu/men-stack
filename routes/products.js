@@ -44,19 +44,31 @@ router.route('/update')
       .post(function(req,res){
         let query = req.body.query;
         let update = req.body.update; 
-
-      	console.log(query);
-      	console.log(update);
-
-      	if(!update || !update){
-      		res.send("Malformed url data not able to find item_id or newitems");
-      	}
-
-      	Products.findOneAndUpdate(query,update,{new:true},function(err){
+ 	
+        Products.findOne(query,function(err,doc){
+            if(err){
+              res.send("Record Not found");
+            }
+             update = JSON.parse(update);
+             doc["category"] = update["category"] || doc["category"];
+             doc["item_id"] = update["item_id"] || doc["item_id"];
+             doc["name"] = update["name"] || doc["name"];
+             doc["price"] =  update["price"] || doc["price"];
+             doc["description"] = update["description"] || doc["description"];
+             doc["img"] = update["img"] || doc["img"];
             
-      	});
-    
-        res.sendStatus(200);
+          
+
+            doc.save(function(err,doc){
+              if(err){
+                res.send('Not alble to save the updated record, kindly check the db connection')
+              }
+
+              res.send(doc);
+
+            })
+
+        });
 
       })
 
